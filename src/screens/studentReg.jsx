@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import "./studentReg.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPost } from "../actions/regActions";
+import { useNavigate } from "react-router-dom";
 
 const StudentReg = () => {
   const dispatch = useDispatch(),
@@ -33,7 +34,8 @@ const StudentReg = () => {
     [gender, setGender] = useState(""),
     [validGender, setValidGender] = useState(false),
     [nationality, setNationality] = useState(""),
-    [dob, setDob] = useState("");
+    [dob, setDob] = useState(""),
+    navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchPost());
@@ -49,9 +51,6 @@ const StudentReg = () => {
     if (!phoneNumber) {
       setValidPhoneNumber(true);
     }
-    if (!phoneNumber) {
-      setValidPhoneNumber(true);
-    }
     if (!email) {
       setValidEmail(true);
     }
@@ -60,6 +59,17 @@ const StudentReg = () => {
     }
     if (!gender) {
       setValidGender(true);
+    }
+    if (
+      firstName &&
+      lastName &&
+      email &&
+      phoneNumber &&
+      email &&
+      regDate &&
+      gender
+    ) {
+      navigate("/");
     }
   };
 
