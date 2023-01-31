@@ -11,34 +11,33 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
+  { id: "studentName", label: "Student Name", minWidth: 170 },
+  { id: "email", label: "Email", minWidth: 100 },
   {
-    id: "population",
-    label: "Population",
+    id: "PhNum",
+    label: "Phone Number",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "size",
-    label: "Size\u00a0(km\u00b2)",
+    id: "RegDate",
+    label: "Registration Date",
     minWidth: 170,
     align: "right",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "density",
-    label: "Density",
+    id: "gender",
+    label: "Gender",
     minWidth: 170,
     align: "right",
     format: (value) => value.toFixed(2),
   },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
+function createData(studentName, email, PhNum, RegDate, gender) {
+  return { studentName, email, PhNum, RegDate, gender };
 }
 
 const rows = [
