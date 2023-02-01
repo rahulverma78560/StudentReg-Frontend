@@ -13,12 +13,13 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import "./studentReg.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPost } from "../actions/regActions";
+import { fetchStudent, regStudentAction } from "../actions/regActions";
 import { useNavigate } from "react-router-dom";
+import { REG_STUDENT_RESET } from "../actions/types";
 
 const StudentReg = () => {
   const dispatch = useDispatch(),
-    studentsList = useSelector((state) => state.posts.items),
+    regStud = useSelector((state) => state.regStudent),
     [firstName, setFirstName] = useState(""),
     [validFirstName, setValidFirstName] = useState(false),
     [middleName, setMiddleName] = useState(""),
@@ -37,9 +38,18 @@ const StudentReg = () => {
     [dob, setDob] = useState(""),
     navigate = useNavigate();
 
+  // useEffect(() => {
+  //   dispatch(fetchStudent());
+  // }, [dispatch]);
+
   useEffect(() => {
-    dispatch(fetchPost());
-  }, [dispatch]);
+    if (regStud.items.code === 201) {
+      console.log(regStud.items.code);
+      navigate("/");
+      dispatch({ type: REG_STUDENT_RESET });
+    }
+    console.log(regStud);
+  }, [regStud]);
 
   const regStudent = () => {
     if (!firstName) {
@@ -69,7 +79,15 @@ const StudentReg = () => {
       regDate &&
       gender
     ) {
-      navigate("/");
+      dispatch(
+        regStudentAction({
+          name: `${firstName} ${middleName} ${lastName}`,
+          email: email,
+          phNo: phoneNumber,
+          regNumber: regNumber,
+          dob: dob,
+        })
+      );
     }
   };
 
@@ -266,7 +284,7 @@ const StudentReg = () => {
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button
-                type='submit'
+                // type='submit'
                 variant='contained'
                 color='success'
                 onClick={regStudent}

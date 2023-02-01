@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import { fetchStudentReducers } from "./postReducer";
+import { fetchStudentReducers, regStudentReducers } from "./postReducer";
 
 export default combineReducers({
-    posts: fetchStudentReducers
+    fetchStudent: fetchStudentReducers,
+    regStudent: regStudentReducers
 })
