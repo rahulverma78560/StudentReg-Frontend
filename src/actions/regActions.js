@@ -1,8 +1,7 @@
-import axios from "axios";
 import axiosInstance from "../config/axios.config";
 import { FETCH_STUDENTS_FAIL, FETCH_STUDENTS_REQ, FETCH_STUDENTS_RES, REG_STUDENT_FAIL, REG_STUDENT_REQ, REG_STUDENT_RES } from "./types";
 
-export const fetchStudent = () => async (dispatch) => {
+export const fetchStudentAction = () => async (dispatch) => {
     try {
         dispatch({
             type: FETCH_STUDENTS_REQ,

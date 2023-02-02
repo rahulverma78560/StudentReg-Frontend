@@ -13,7 +13,7 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import "./studentReg.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStudent, regStudentAction } from "../actions/regActions";
+import { regStudentAction } from "../actions/regActions";
 import { useNavigate } from "react-router-dom";
 import { REG_STUDENT_RESET } from "../actions/types";
 
@@ -38,18 +38,13 @@ const StudentReg = () => {
     [dob, setDob] = useState(""),
     navigate = useNavigate();
 
-  // useEffect(() => {
-  //   dispatch(fetchStudent());
-  // }, [dispatch]);
-
   useEffect(() => {
     if (regStud.items.code === 201) {
       console.log(regStud.items.code);
       navigate("/");
       dispatch({ type: REG_STUDENT_RESET });
     }
-    console.log(regStud);
-  }, [regStud]);
+  }, [dispatch, navigate, regStud]);
 
   const regStudent = () => {
     if (!firstName) {
@@ -84,8 +79,11 @@ const StudentReg = () => {
           name: `${firstName} ${middleName} ${lastName}`,
           email: email,
           phNo: phoneNumber,
-          regNumber: regNumber,
-          dob: dob,
+          regNumber: regNumber ? regNumber : "-NA-",
+          dob: dob ? dob : "-NA-",
+          gender: gender,
+          regDate: regDate,
+          nationality: nationality ? nationality : "-NA-",
         })
       );
     }
@@ -244,9 +242,9 @@ const StudentReg = () => {
                     }
                   }}
                 >
-                  <MenuItem value={10}>Male</MenuItem>
-                  <MenuItem value={20}>Female</MenuItem>
-                  <MenuItem value={30}>Transgender</MenuItem>
+                  <MenuItem value={"Male"}>Male</MenuItem>
+                  <MenuItem value={"Female"}>Female</MenuItem>
+                  <MenuItem value={"Transgender"}>Transgender</MenuItem>
                 </Select>
                 <FormHelperText>
                   {validGender ? "Please select gender" : ""}
@@ -264,9 +262,9 @@ const StudentReg = () => {
                     setNationality(e.target.value);
                   }}
                 >
-                  <MenuItem value={10}>Indian</MenuItem>
-                  <MenuItem value={20}>American</MenuItem>
-                  <MenuItem value={30}>German</MenuItem>
+                  <MenuItem value={"Indian"}>Indian</MenuItem>
+                  <MenuItem value={"American"}>American</MenuItem>
+                  <MenuItem value={"German"}>German</MenuItem>
                 </Select>
               </FormControl>
               <TextField

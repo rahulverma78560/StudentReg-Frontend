@@ -1,9 +1,11 @@
 import { FETCH_STUDENTS_FAIL, FETCH_STUDENTS_REQ, FETCH_STUDENTS_RES, REG_STUDENT_FAIL, REG_STUDENT_REQ, REG_STUDENT_RES, REG_STUDENT_RESET } from "../actions/types";
 
-export const fetchStudentReducers = (state = {
+const initialState = {
     items: [],
     item: {}
-}, actions) => {
+}
+export const fetchStudentReducers = (state = initialState
+    , actions) => {
     switch (actions.type) {
         case FETCH_STUDENTS_REQ:
             return {
@@ -23,10 +25,7 @@ export const fetchStudentReducers = (state = {
     }
 }
 
-export const regStudentReducers = (state = {
-    items: [],
-    item: {}
-}, actions) => {
+export const regStudentReducers = (state = initialState, actions) => {
     switch (actions.type) {
         case REG_STUDENT_REQ:
             return {
