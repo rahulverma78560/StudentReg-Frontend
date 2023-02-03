@@ -181,9 +181,7 @@ const ListStudents = () => {
                               {column.id === "delete" ? (
                                 <Grid item xs={8}>
                                   <DeleteForeverOutlinedIcon
-                                    onClick={() => {
-                                      deleteStudent(row._id);
-                                    }}
+                                    onClick={() => deleteStudent(row._id)}
                                   />
                                 </Grid>
                               ) : (
