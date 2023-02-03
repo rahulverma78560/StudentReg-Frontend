@@ -11,10 +11,9 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Students "];
+const pages = [];
 const settings = ["Profile", "Account", "Logout"];
 
 const Header = () => {
@@ -38,29 +37,19 @@ const Header = () => {
   };
 
   return (
-    <AppBar position='static'>
+    <AppBar
+      position='static'
+      style={{ backgroundColor: "#ffff ", color: "#370041 " }}
+    >
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
+          <Box
+            component='img'
+            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            alt='The house from the offer.'
+            src='https://www.ellucian.com/themes/custom/elluciantheme/logo.svg'
             onClick={() => navigate("/")}
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-            style={{ cursor: "pointer" }}
-          >
-            ellucian
-          </Typography>
-
+          />
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size='large'
@@ -97,7 +86,13 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Box
+            component='img'
+            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+            alt='The house from the offer.'
+            src='https://www.ellucian.com/themes/custom/elluciantheme/logo.svg'
+            onClick={() => navigate("/")}
+          />
           <Typography
             variant='h5'
             noWrap
@@ -110,18 +105,16 @@ const Header = () => {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "#370041",
               textDecoration: "none",
             }}
-          >
-            LOGO
-          </Typography>
+          ></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                sx={{ my: 3, color: "#370041", display: "block" }}
               >
                 {page}
               </Button>

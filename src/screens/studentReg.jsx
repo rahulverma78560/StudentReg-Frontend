@@ -76,6 +76,7 @@ const StudentReg = () => {
     ) {
       dispatch(
         regStudentAction({
+          _id: Math.floor(Math.random() * 0xffffff * 1000000).toString(16),
           name: `${firstName} ${middleName} ${lastName}`,
           email: email,
           phNo: phoneNumber,
@@ -282,9 +283,8 @@ const StudentReg = () => {
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button
-                // type='submit'
                 variant='contained'
-                color='success'
+                style={{ backgroundColor: "#370041 " }}
                 onClick={regStudent}
               >
                 Submit

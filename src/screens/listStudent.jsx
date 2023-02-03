@@ -74,6 +74,7 @@ const ListStudents = () => {
   }, [dispatch]);
 
   const createData = (
+    _id,
     studentName,
     email,
     PhNum,
@@ -83,6 +84,7 @@ const ListStudents = () => {
     nationality
   ) => {
     return {
+      _id,
       studentName,
       email,
       PhNum,
@@ -99,6 +101,7 @@ const ListStudents = () => {
       listStud.forEach((data) => {
         students.push(
           createData(
+            data._id,
             data.name,
             data.email,
             data.phNo,
@@ -117,7 +120,7 @@ const ListStudents = () => {
     <>
       <Button
         startIcon={<AddBoxIcon />}
-        style={{ margin: "20px", float: "right" }}
+        style={{ margin: "20px", float: "right", backgroundColor: "#370041 " }}
         variant='contained'
         onClick={() => navigate("/regStudent")}
       >
@@ -132,7 +135,11 @@ const ListStudents = () => {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    style={{
+                      minWidth: column.minWidth,
+                      backgroundColor: "#6A1B76",
+                      color: "#fff",
+                    }}
                   >
                     {column.label}
                   </TableCell>
@@ -144,12 +151,7 @@ const ListStudents = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
-                    <TableRow
-                      hover
-                      role='checkbox'
-                      tabIndex={-1}
-                      key={row.code}
-                    >
+                    <TableRow hover role='checkbox' tabIndex={-1} key={row._id}>
                       {columns.map((column) => {
                         const value = row[column.id];
                         return (
