@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchStudentAction } from "../actions/regActions";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 const ListStudents = () => {
   const [page, setPage] = useState(0),
     [rowsPerPage, setRowsPerPage] = useState(10),
@@ -21,49 +22,43 @@ const ListStudents = () => {
     dispatch = useDispatch(),
     listStud = useSelector((state) => state.fetchStudent.items),
     columns = [
-      { id: "studentName", label: "Student Name", minWidth: 170 },
+      { id: "studentName", label: "Student Name", minWidth: 150 },
       { id: "email", label: "Email", minWidth: 100 },
       {
         id: "PhNum",
         label: "Phone Number",
         minWidth: 130,
         align: "right",
-        format: (value) => value.toLocaleString("en-US"),
       },
       {
         id: "RegDate",
         label: "Registration Date",
         minWidth: 130,
         align: "right",
-        format: (value) => value.toLocaleString("en-US"),
       },
       {
         id: "gender",
         label: "Gender",
         minWidth: 130,
         align: "right",
-        format: (value) => value.toFixed(2),
       },
       {
         id: "regNumber",
         label: "Register Number",
         minWidth: 130,
         align: "right",
-        format: (value) => value.toFixed(2),
       },
       {
         id: "nationality",
         label: "Nationality",
         minWidth: 130,
         align: "right",
-        format: (value) => value.toFixed(2),
       },
       {
         id: "delete",
         label: "Delete",
         minWidth: 70,
         align: "right",
-        format: (value) => value.toFixed(2),
       },
     ];
 
@@ -180,7 +175,8 @@ const ListStudents = () => {
                             <TableCell key={column.id} align={column.align}>
                               {column.id === "delete" ? (
                                 <Grid item xs={8}>
-                                  <DeleteForeverOutlinedIcon
+                                  <DeleteIcon
+                                    style={{ color: "red", cursor: "pointer" }}
                                     onClick={() => deleteStudent(row._id)}
                                   />
                                 </Grid>
