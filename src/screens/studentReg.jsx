@@ -106,7 +106,9 @@ const StudentReg = () => {
           padding: "20px",
         }}
       >
-        <h1 className='header'>Student Registration</h1>
+        <h1 className='header' style={{ color: "#6A1B76" }}>
+          Student Registration
+        </h1>
         <FormContainer>
           <form>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
