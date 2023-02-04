@@ -11,7 +11,7 @@ import { Button, Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchStudentAction } from "../actions/regActions";
+import { deleteStudentAction, fetchStudentAction } from "../actions/regActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const ListStudents = () => {
@@ -119,7 +119,9 @@ const ListStudents = () => {
   }, [listStud]);
 
   const deleteStudent = (studentId) => {
-    console.log(studentId);
+    const studentData = rows.filter((stud) => studentId !== stud._id);
+    setRow(studentData);
+    dispatch(deleteStudentAction(studentId));
   };
 
   return (
