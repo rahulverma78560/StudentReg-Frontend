@@ -13,6 +13,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteStudentAction, fetchStudentAction } from "../actions/regActions";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Swal from "sweetalert2";
 
 const ListStudents = () => {
   const [page, setPage] = useState(0),
@@ -118,10 +119,20 @@ const ListStudents = () => {
     }
   }, [listStud]);
 
-  const deleteStudent = (studentId) => {
-    const studentData = rows.filter((stud) => studentId !== stud._id);
-    setRow(studentData);
-    dispatch(deleteStudentAction(studentId));
+  const deleteStudent = (studentDt) => {
+    Swal.fire({
+      title: `Do you want to delete ${studentDt.studentName}'s record ?`,
+      showDenyButton: true,
+      confirmButtonText: "Yes",
+      denyButtonText: "No",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const studentData = rows.filter((stud) => studentDt._id !== stud._id);
+        setRow(studentData);
+        dispatch(deleteStudentAction(studentDt._id));
+        Swal.fire("SUCCESS", "Deleted Successfully", "success");
+      }
+    });
   };
 
   return (
@@ -179,7 +190,7 @@ const ListStudents = () => {
                                 <Grid item xs={8}>
                                   <DeleteIcon
                                     style={{ color: "red", cursor: "pointer" }}
-                                    onClick={() => deleteStudent(row._id)}
+                                    onClick={() => deleteStudent(row)}
                                   />
                                 </Grid>
                               ) : (

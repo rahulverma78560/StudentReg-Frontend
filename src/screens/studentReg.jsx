@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import FormContainer from "../components/formContainer";
 import {
-  Button,
   Card,
   FormControl,
   FormHelperText,
@@ -16,6 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { regStudentAction } from "../actions/regActions";
 import { useNavigate } from "react-router-dom";
 import { REG_STUDENT_RESET } from "../actions/types";
+import Swal from "sweetalert2";
+import SaveIcon from "@mui/icons-material/Save";
+import { LoadingButton } from "@mui/lab";
 
 const StudentReg = () => {
   const dispatch = useDispatch(),
@@ -36,12 +38,19 @@ const StudentReg = () => {
     [validGender, setValidGender] = useState(false),
     [nationality, setNationality] = useState(""),
     [dob, setDob] = useState(""),
-    navigate = useNavigate();
+    navigate = useNavigate(),
+    [btnValue, setBtnValue] = useState("Submit"),
+    [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (regStud.items.code === 201) {
-      console.log(regStud.items.code);
-      navigate("/");
+      setBtnValue("Submit");
+      setLoading(false);
+      Swal.fire("SUCCESS", regStud.items.message, "success").then((res) => {
+        if (res.isConfirmed) {
+          navigate("/");
+        }
+      });
       dispatch({ type: REG_STUDENT_RESET });
     }
   }, [dispatch, navigate, regStud]);
@@ -74,19 +83,34 @@ const StudentReg = () => {
       regDate &&
       gender
     ) {
-      dispatch(
-        regStudentAction({
-          _id: Math.floor(Math.random() * 0xffffff * 1000000).toString(16),
-          name: `${firstName} ${middleName} ${lastName}`,
-          email: email,
-          phNo: phoneNumber,
-          regNumber: regNumber ? regNumber : "-NA-",
-          dob: dob ? dob : "-NA-",
-          gender: gender,
-          regDate: regDate,
-          nationality: nationality ? nationality : "-NA-",
-        })
-      );
+      Swal.fire({
+        title: "Do you want to submit the details?",
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        denyButtonText: "No",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setBtnValue("Processing");
+          setLoading(true);
+          dispatch(
+            regStudentAction({
+              _id: Math.floor(Math.random() * 0xffffff * 1000000).toString(16),
+              name: `${firstName} ${middleName} ${lastName}`,
+              email: email,
+              phNo: phoneNumber,
+              regNumber: regNumber ? regNumber : "-NA-",
+              dob: dob ? dob : "-NA-",
+              gender: gender,
+              regDate: regDate,
+              nationality: nationality ? nationality : "-NA-",
+            })
+          );
+        } else if (result.isDenied) {
+          setLoading(false);
+          setBtnValue("Submit");
+          Swal.fire("Changes are not saved", "", "info");
+        }
+      });
     }
   };
 
@@ -284,13 +308,16 @@ const StudentReg = () => {
               />
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant='contained'
-                style={{ backgroundColor: "#370041 " }}
+              <LoadingButton
+                style={!loading ? { backgroundColor: "#370041 " } : {}}
                 onClick={regStudent}
+                loading={loading}
+                loadingPosition='start'
+                startIcon={<SaveIcon />}
+                variant='contained'
               >
-                Submit
-              </Button>
+                {btnValue}
+              </LoadingButton>
             </div>
           </form>
         </FormContainer>
