@@ -8,7 +8,7 @@ export const fetchStudentReducers = (state = initialState, actions) => {
     switch (actions.type) {
         case FETCH_STUDENTS_REQ:
             return {
-                items: true
+                items: { loading: true }
             }
         case FETCH_STUDENTS_RES:
             return {
@@ -17,7 +17,7 @@ export const fetchStudentReducers = (state = initialState, actions) => {
             }
         case FETCH_STUDENTS_FAIL:
             return {
-                items: false
+                items: { loading: false }
             }
         default:
             return state
@@ -52,7 +52,7 @@ export const deleteStudentReducers = (state = initialState, actions) => {
     switch (actions.type) {
         case DELETE_STUDENT_REQ:
             return {
-                items: true
+                items: { loading: true }
             }
         case DELETE_STUDENT_RES:
             return {
@@ -61,7 +61,7 @@ export const deleteStudentReducers = (state = initialState, actions) => {
             }
         case DELETE_STUDENT_FAIL:
             return {
-                items: false
+                items: { loading: false }
             }
         default:
             return state

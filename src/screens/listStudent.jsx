@@ -14,11 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteStudentAction, fetchStudentAction } from "../actions/regActions";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
+import { MoonLoader } from "react-spinners";
+import "./listStudent.css";
 
 const ListStudents = () => {
   const [page, setPage] = useState(0),
     [rowsPerPage, setRowsPerPage] = useState(10),
     [rows, setRow] = useState([]),
+    [loading, setLoading] = useState(true),
     navigate = useNavigate(),
     dispatch = useDispatch(),
     listStud = useSelector((state) => state.fetchStudent.items),
@@ -99,8 +102,10 @@ const ListStudents = () => {
   };
 
   useEffect(() => {
+    setLoading(listStud.loading);
     if (listStud && listStud.length) {
       let students = [];
+      setLoading(false);
       listStud.forEach((data) => {
         students.push(
           createData(
@@ -152,7 +157,7 @@ const ListStudents = () => {
             overflow: "hidden",
           }}
         >
-          <TableContainer sx={{ maxHeight: 440 }}>
+          <TableContainer sx={{ maxHeight: 450 }}>
             <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
@@ -205,6 +210,15 @@ const ListStudents = () => {
               </TableBody>
             </Table>
           </TableContainer>
+          {!rows.length && (
+            <MoonLoader
+              color='#6A1B76'
+              loading={loading}
+              size={100}
+              id='loader'
+            />
+          )}
+
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component='div'
