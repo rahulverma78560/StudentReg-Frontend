@@ -157,7 +157,7 @@ const ListStudents = () => {
             overflow: "hidden",
           }}
         >
-          <TableContainer sx={{ maxHeight: 450 }}>
+          <TableContainer sx={{ maxHeight: 600 }}>
             <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
